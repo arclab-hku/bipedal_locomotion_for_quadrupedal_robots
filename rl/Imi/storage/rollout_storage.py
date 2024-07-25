@@ -53,8 +53,7 @@ class RolloutStorage:
         self.sigma = torch.zeros(num_transitions_per_env, num_envs, *actions_shape, device=self.device)
 
         # For entrin loss
-        # self.extrin_loss = torch.zeros(num_transitions_per_env, num_envs, 3, device=self.device)
-        self.extrin_loss = torch.zeros(num_transitions_per_env, num_envs, 9, device=self.device)
+        self.extrin_loss = torch.zeros(num_transitions_per_env, num_envs, 6, device=self.device)
 
         # For privileged info
         self.privileged_info = torch.zeros(num_transitions_per_env, num_envs, privileged_obs_shape[0], device=self.device)

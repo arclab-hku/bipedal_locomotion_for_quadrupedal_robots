@@ -119,8 +119,7 @@ class PPO:
         mean_surrogate_loss = 0
         mean_vel_loss = 0
         mean_com_cop_loss = 0
-        mean_omega_loss = 0
-        # mean_morph_loss = 0
+
         mean_contact_loss = 0
 
         if self.actor_critic.is_recurrent:
@@ -188,19 +187,19 @@ class PPO:
             pre_morph = extrin_batch[:, 3:]
 
             real_com_cop = privileged_info_batch[:, 219:222]
-            real_omega = privileged_info_batch[:, 222:225]
+
             real_vel_com_cop = torch.cat((real_vel,
                                           real_com_cop,
                                          ), dim=-1)
 
             vel_loss = F.mse_loss(extrin_batch[:, 0:3], real_vel.detach())
-            omega_loss = F.mse_loss(extrin_batch[:, 3:6], real_omega.detach())
-            com_cop_loss = F.mse_loss(extrin_batch[:, 6:9], real_com_cop.detach())
+
+            com_cop_loss = F.mse_loss(extrin_batch[:, 3:6], real_com_cop.detach())
             # vel_loss = F.huber_loss(extrin_batch[:, 0:6], real_vel_com_cop.detach())
-            # vel_loss = F.mse_loss(extrin_batch[:, 0:3], real_vel.detach())
 
 
-            loss_encoder = vel_loss + omega_loss + com_cop_loss
+
+            loss_encoder = vel_loss + com_cop_loss
 
             # Gradient step
             self.optimizer.zero_grad()
@@ -215,7 +214,7 @@ class PPO:
 
             mean_vel_loss += vel_loss.item()
             mean_com_cop_loss += com_cop_loss.item()
-            mean_omega_loss += omega_loss.item()
+
 
             mean_value_loss += value_loss.item()
             mean_surrogate_loss += surrogate_loss.item()
@@ -226,4 +225,4 @@ class PPO:
 
         self.storage.clear()
 
-        return mean_value_loss, mean_surrogate_loss, mean_vel_loss, mean_com_cop_loss, mean_omega_loss, mean_contact_loss
+        return mean_value_loss, mean_surrogate_loss, mean_vel_loss, mean_com_cop_loss, mean_contact_loss

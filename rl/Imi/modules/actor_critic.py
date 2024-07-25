@@ -313,24 +313,22 @@ class ActorCritic(nn.Module):
         obs_mass = obs_dict['privileged_info'][:, 200:204]
         obs_kp_kd = obs_dict['privileged_info'][:, 204:218]
         obs_friction = obs_dict['privileged_info'][:, 218:219]
-        # ref_vt = obs_dict['privileged_info'][:, 219:222]
+
         obs_com_cop = obs_dict['privileged_info'][:, 219:222]
-        obs_omega = obs_dict['privileged_info'][:, 222:225]
+
         extrin_en = self.dm_encoder(obs_his)
 
         pre_obs_vel = extrin_en[:, 0:3]
-        pre_obs_omega = extrin_en[:, 3:6]
-        pre_obs_com_cop = extrin_en[:, 6:9]
 
-        # actor_obs = torch.cat([ref_vt, obs], dim=-1)  ## 45 + 3
-        actor_obs = torch.cat([pre_obs_vel, pre_obs_omega, obs, pre_obs_com_cop], dim=-1)
-        # actor_obs = torch.cat([pre_obs_vel, obs], dim=-1)
-        # critic_obs = torch.cat([obs_vel, obs, obs_height, obs_mass, obs_push, obs_friction, obs_kp_kd],
-        #                         dim=-1)
-        critic_obs = torch.cat([obs_vel, obs_omega, obs, obs_com_cop, obs_height, obs_mass, obs_push, obs_friction, obs_kp_kd],
+        pre_obs_com_cop = extrin_en[:, 3:6]
+
+
+        actor_obs = torch.cat([pre_obs_vel, obs, pre_obs_com_cop], dim=-1)
+
+
+        critic_obs = torch.cat([obs_vel, obs, obs_com_cop, obs_height, obs_mass, obs_push, obs_friction, obs_kp_kd],
                                 dim=-1)  ## 45+3+187+19 = 219
-        # critic_obs = torch.cat([obs_vel, obs, obs_height, obs_mass, obs_push, obs_friction, obs_kp_kd],
-                                # dim=-1) 
+
         # self.est_com_traj += pre_obs_com_cop.clone().detach().cpu().numpy().tolist()
         # self.real_com_traj += obs_com_cop.clone().detach().cpu().numpy().tolist()
         # self.est_vel_traj += pre_obs_vel.clone().detach().cpu().numpy().tolist()

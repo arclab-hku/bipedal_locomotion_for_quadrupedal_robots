@@ -112,7 +112,7 @@ class ImiPolicyRunner:
                 start = stop
                 self.alg.compute_returns(obs_dict)
 
-            mean_value_loss, mean_surrogate_loss, mean_vel_loss, mean_com_cop_loss, mean_omega_loss, mean_contact_loss = self.alg.update()
+            mean_value_loss, mean_surrogate_loss, mean_vel_loss, mean_com_cop_loss, mean_contact_loss = self.alg.update()
             stop = time.time()
             learn_time = stop - start
             if self.nn_dir is not None:
@@ -149,8 +149,8 @@ class ImiPolicyRunner:
 
         self.writer.add_scalar('Vel/vel_loss', locs['mean_vel_loss'], locs['it'])
         self.writer.add_scalar('Vel/com_cop_loss', locs['mean_com_cop_loss'], locs['it'])
-        self.writer.add_scalar('Vel/omega_loss', locs['mean_omega_loss'], locs['it'])
-        # self.writer.add_scalar('Vel/contact_loss', locs['mean_contact_loss'], locs['it'])
+        # self.writer.add_scalar('Vel/omega_loss', locs['mean_omega_loss'], locs['it'])
+        self.writer.add_scalar('Vel/contact_loss', locs['mean_contact_loss'], locs['it'])
 
         self.writer.add_scalar('Loss/value_function', locs['mean_value_loss'], locs['it'])
         self.writer.add_scalar('Loss/surrogate', locs['mean_surrogate_loss'], locs['it'])
