@@ -1,4 +1,4 @@
-# Isaac Gym Environments for Quadrupedal Robots to Perform Bipedal Locomotion#
+# Isaac Gym Environments for Quadrupedal Robots to Perform Bipedal Locomotion #
 This repository provides the environment used to train Unitree Go1 to walk on rough terrain using NVIDIA's Isaac Gym.
 It includes all components needed for sim-to-real transfer: actuator network, friction & mass randomization, noisy observations and random pushes during training.  
 **Maintainer**: Erdong Xiao
