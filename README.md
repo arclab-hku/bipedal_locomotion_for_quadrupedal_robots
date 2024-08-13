@@ -5,7 +5,7 @@ It includes all components needed for sim-to-real transfer: actuator network, fr
 
 [//]: # (**Contact**:  exiao@connect.hku.hk )
 
-### Useful Links ###
+<!-- ### Useful Links ###
 Original Project website: https://leggedrobotics.github.io/legged_gym/
 
 ### Installation ###
@@ -22,7 +22,7 @@ Original Project website: https://leggedrobotics.github.io/legged_gym/
    -  `cd rsl_rl && pip install -e .` 
 5. Install legged_gym
     - Clone this repository
-   - `cd legged_gym && pip install -e .`
+   - `cd legged_gym && pip install -e .` -->
 
 ### CODE STRUCTURE ###
 1. Each environment is defined by an env file (`legged_robot.py`) and a config file (`legged_robot_config.py`). The config file contains two classes: one conatianing all the environment parameters (`LeggedRobotCfg`) and one for the training parameters (`LeggedRobotCfgPPo`).  
